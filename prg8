@@ -1,0 +1,76 @@
+<?php
+date_default_timezone_set("Asia/Kolkata");
+$lastVisited = date("Y-m-d H:i:s");
+?>
+<!DOCTYPE html>
+<html>
+<head>
+ <title>PSG College of Arts & Science</title>
+ <style>
+ body {
+ margin: 0;
+ font-family: Arial, sans-serif;
+ }
+ .navbar {
+ background-color: #555;
+ padding: 10px;
+ color: white;
+ }
+ .navbar a {
+ color: yellow;
+ margin: 0 15px;
+ text-decoration: none;
+ }
+ .navbar a:hover {
+ color: white;
+ }
+ .content {
+ text-align: center;
+ padding: 20px;
+ }
+ img {
+ width: 80%;
+ max-width: 700px;
+ margin-top: 20px;
+ }
+ </style>
+</head>
+<body>
+<div class="navbar">
+ <strong>PSG COLLEGE OF ARTS & SCIENCE</strong>
+ <a href="index.php">Home</a>
+ <a href="about.php">About</a>
+ <a href="programmes.php">Programs</a>
+ <a href="exams.php">Exams</a>
+ <a href="placement.php">Placement</a>
+</div>
+<div class="content"><h2>WELCOME TO PSG COLLEGE OF ARTS & SCIENCE</h2>
+ <p>Explore our wide range of academic programs, state-of-the-art facilities and diverse student 
+community.</p>
+ <p style="color: red;">Your last visited on this page on <?php echo $lastVisited; ?></p>
+ <img src="college.jpg" alt="College Logo">
+</div>
+</body>
+</html>
+Sample about.php 
+<!DOCTYPE html>
+<html>
+<head>
+ <title>About - PSG College</title>
+</head>
+<body>
+ <div class="navbar">
+ <strong>PSG COLLEGE OF ARTS & SCIENCE</strong>
+ <a href="index.php">Home</a>
+ <a href="about.php">About</a>
+ <a href="programmes.php">Programs</a>
+ <a href="exams.php">Exams</a>
+ <a href="placement.php">Placement</a>
+ </div>
+ <div class="content">
+ <h2>About Us</h2>
+ <p>PSG College of Arts & Science was established in 1947. It is an autonomous institution 
+affiliated with Bharathiar University...</p>
+ </div>
+</body>
+</html>
