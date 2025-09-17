@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Character Type Counter</title> 
+</head> 
+<body> 
+<h2>Count Uppercase, Lowercase, Numbers & Special Characters</h2> 
+<form method="post" action=""> 
+<p>Enter a string:</p> 
+<input type="text" name="txt" required> 
+<br><br> 
+<input type="submit" value="Count"> 
+</form> 
+<hr> 
+<?php 
+if ($_SERVER["REQUEST_METHOD"] === "POST") { 
+    $str = $_POST['txt']; 
+    $upper = $lower = $digit = $special = 0; 
+ 
+    for ($i = 0; $i < strlen($str); $i++) { 
+        $ch = $str[$i]; 
+        if (ctype_upper($ch)) $upper++; 
+        elseif (ctype_lower($ch)) $lower++; 
+        elseif (ctype_digit($ch)) $digit++; 
+        else $special++; 
+    } 
+ 
+    echo "Uppercase letters: $upper<br>"; 
+    echo "Lowercase letters: $lower<br>"; 
+    echo "Numbers: $digit<br>"; 
+    echo "Special characters: $special"; 
+} 
+?> 
+</body> 
+</html>
