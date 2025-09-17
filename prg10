@@ -1,0 +1,70 @@
+<?php
+// Database connection
+$servername = "localhost";
+$username   = "root";   // default for WAMP
+$password   = "";       // default = empty
+$dbname     = "testdb"; // change this to your database name
+
+// Create connection using mysqli
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// ---------------------
+// Example SQL Queries
+// ---------------------
+
+// 1. Display all employees
+$sql = "SELECT * FROM employees";
+
+// 2. Insert a new employee
+// $sql = "INSERT INTO employees VALUES (5, 'Kalai', 'Developer', 76000)";
+
+// 3. Select only name and position where salary > 50000
+// $sql = "SELECT name, position FROM employees WHERE salary > 50000";
+
+// 4. Update salary for an employee named 'Saranya'
+// $sql = "UPDATE employees SET salary = 500000 WHERE name = 'Saranya'";
+
+// 5. Order employees by name (Ascending)
+// $sql = "SELECT * FROM employees ORDER BY name ASC";
+
+// 6. Order employees by salary (Descending)
+// $sql = "SELECT * FROM employees ORDER BY salary DESC";
+
+// 7. Delete one employee by ID
+// $sql = "DELETE FROM employees WHERE id = 3";
+
+// 8. Count total employees
+// $sql = "SELECT COUNT(*) AS total FROM employees";
+
+// ---------------------
+
+// Run the query
+$result = $conn->query($sql);
+
+// Display results if it's a SELECT
+if ($result && $result instanceof mysqli_result) {
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo "<pre>";
+            print_r($row);
+            echo "</pre>";
+        }
+    } else {
+        echo "No records found.";
+    }
+} else {
+    if ($result === TRUE) {
+        echo "Query executed successfully!";
+    } else {
+        echo "Error: " . $conn->error;
+    }
+}
+
+// Close connection
+$conn->close();
+?>
