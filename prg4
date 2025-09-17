@@ -1,0 +1,49 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>Required Field Validation</title> 
+</head> 
+<body> 
+<h2>Form with Required Fields</h2> 
+ 
+<form method="post" action=""> 
+    Name: <input type="text" name="name"><br><br> 
+    Email: <input type="text" name="email"><br><br> 
+    Password: <input type="password" name="password"><br><br> 
+    <input type="submit" value="Submit"> 
+</form> 
+ 
+<hr> 
+ 
+<?php 
+if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+    $name  = trim($_POST['name']); 
+    $email = trim($_POST['email']); 
+    $pass  = trim($_POST['password']); 
+ 
+    $errors = []; 
+ 
+    // Name: only letters and spaces 
+    if (empty($name)) $errors[] = "Name is required."; 
+    elseif (!preg_match("/^[a-zA-Z ]+$/", $name)) $errors[] = "Name can only contain letters and spaces."; 
+ 
+    // Email: Valid email format 
+    if (empty($email)) $errors[] = "Email is required."; 
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Invalid email format."; 
+ 
+    // Password: Minimum 6 chars, must contain letters & numbers 
+    if (empty($pass)) $errors[] = "Password is required."; 
+    elseif (!preg_match("/^(?=.*[A-Za-z])(?=.*\d).{6,}$/", $pass)) 
+        $errors[] = "Password must be at least 6 characters and contain letters and numbers."; 
+ 
+    // Show results 
+    if ($errors) { 
+        foreach ($errors as $e) echo "<p style='color:red;'>$e</p>"; 
+    } else { 
+        echo "Form submitted successfully!<br>"; 
+        echo "Name: $name<br>Email: $email<br>Password: $pass"; 
+    } 
+} 
+?> 
+</body> 
+</html>
