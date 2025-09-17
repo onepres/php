@@ -1,0 +1,70 @@
+login.php 
+<?php 
+session_start(); 
+ 
+// Hardcoded credentials 
+$USERNAME = "admin"; 
+$PASSWORD = "12345"; 
+ 
+// Hardcoded user info 
+$userInfo = [ 
+    "name"  => "John Doe", 
+    "email" => "john.doe@example.com", 
+    "phone" => "+91 9876543210", 
+    "profile_pic" => "profile.jpg" 
+]; 
+ 
+if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+    $user = $_POST['username']; 
+    $pass = $_POST['password']; 
+ 
+    if ($user === $USERNAME && $pass === $PASSWORD) { 
+        $_SESSION['username'] = $user; 
+        $_SESSION['info'] = $userInfo;  // Store info 
+        header("Location: profile.php"); 
+        exit(); 
+    } else { 
+        $error = "Invalid Username or Password!"; 
+    } 
+} 
+?> 
+<!DOCTYPE html> 
+<html> 
+<head><title>Login</title></head> 
+<body> 
+    <h2>Login Form</h2> 
+    <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?> 
+    <form method="post"> 
+        Username: <input type="text" name="username" required><br><br> 
+        Password: <input type="password" name="password" required><br><br> 
+        <input type="submit" value="Login"> 
+</form> 
+</body> 
+</html> 
+Profile.php 
+<?php 
+session_start(); 
+if (!isset($_SESSION['username'])) { 
+header("Location: login.php"); 
+exit(); 
+} 
+$info = $_SESSION['info']; 
+?> 
+<!DOCTYPE html> 
+<html> 
+<head><title>Profile</title></head> 
+<body> 
+<h2>Welcome, <?php echo htmlspecialchars($info['name']); ?>!</h2> 
+<img src="<?php echo $info['profile_pic']; ?>" width="120" height="120"><br><br> 
+<p><b>Email:</b> <?php echo htmlspecialchars($info['email']); ?></p> 
+<p><b>Phone:</b> <?php echo htmlspecialchars($info['phone']); ?></p> 
+<a href="logout.php">Logout</a> 
+</body> 
+</html> 
+Logout.php 
+<?php 
+session_start(); 
+session_destroy(); 
+header("Location: login.php"); 
+exit(); 
+?>
