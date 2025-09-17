@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>Sum or Factorial</title> 
+</head> 
+<body> 
+<h2>Sum or Factorial</h2> 
+ 
+<form method="post" action=""> 
+    <p>Enter choice: 1 = Sum, 2 = Factorial</p> 
+    <input type="number" name="choice" min="1" max="2" required><br><br> 
+ 
+    <p>Enter number:</p> 
+    <input type="number" name="number" min="1" required><br><br> 
+ 
+    <input type="submit" value="Calculate"> 
+</form> 
+ 
+<hr> 
+ 
+<?php 
+if ($_SERVER["REQUEST_METHOD"] === "POST") { 
+    $choice = $_POST['choice']; 
+    $num = $_POST['number']; 
+ 
+    switch ($choice) { 
+        case 1: 
+            $sum = 0; 
+            for ($i = 1; $i <= $num; $i++) $sum += $i; 
+            echo "Sum of first $num numbers is: $sum"; 
+            break; 
+ 
+        case 2: 
+            $fact = 1; 
+            for ($i = 1; $i <= $num; $i++) $fact *= $i; 
+            echo "Factorial of $num is: $fact"; 
+            break; 
+ 
+        default: 
+            echo "Invalid choice."; 
+    } 
+} 
+?> 
+</body> 
+</html>
