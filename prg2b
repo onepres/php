@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>String, Math & Date Functions</title> 
+</head> 
+<body> 
+<h2>PHP Functions Demo</h2> 
+<form method="post" action=""> 
+<p>Enter choice: 1 = String, 2 = Math, 3 = Date</p> 
+<input type="number" name="choice" min="1" max="3" required><br><br> 
+<p>Enter a value (if needed):</p> 
+<input type="text" name="value"><br><br> 
+<input type="submit" value="Run"> 
+</form> 
+<hr> 
+<?php 
+if ($_SERVER["REQUEST_METHOD"] === "POST") { 
+$c = $_POST['choice']; 
+    $v = $_POST['value']; 
+ 
+    switch ($c) { 
+        case 1: // String functions demo 
+            echo "Original: $v<br>"; 
+            echo "Length: " . strlen($v) . "<br>"; 
+            echo "Uppercase: " . strtoupper($v) . "<br>"; 
+            echo "Reverse: " . strrev($v); 
+            break; 
+ 
+        case 2: // Math functions demo 
+            $n = (float)$v; 
+            echo "Number: $n<br>"; 
+            echo "Square root: " . sqrt($n) . "<br>"; 
+            echo "Power of 2: " . pow($n, 2) . "<br>"; 
+            echo "Random (1-100): " . rand(1, 100); 
+            break; 
+ 
+        case 3: // Date functions demo 
+            echo "Current Date: " . date("Y-m-d") . "<br>"; 
+            echo "Current Time: " . date("H:i:s") . "<br>"; 
+            echo "Day: " . date("l") . "<br>"; 
+            echo "Timestamp: " . time(); 
+            break; 
+ 
+        default: 
+            echo "Invalid choice."; 
+    } 
+} 
+?> 
+</body> 
+</html> 
