@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>PHP File Handling</title> 
+</head> 
+<body> 
+<h2>File Handling Operations</h2> 
+<form method="post" action="program2.php"> 
+<p>Enter choice:   
+1 = Write, 2 = Read, 3 = Append, 4 = Delete</p> 
+<input type="number" name="choice" min="1" max="4" required><br><br> 
+<input type="submit" value="Execute"> 
+</form> 
+ 
+<hr> 
+ 
+<?php 
+if ($_SERVER["REQUEST_METHOD"] === "POST") { 
+ 
+    $file   = "example.txt"; 
+    $choice = $_POST['choice']; 
+ 
+    switch ($choice) { 
+        case 1: // Write fixed text 
+            file_put_contents($file, "This is sample content.\n"); 
+            echo "Content written to file."; 
+            break; 
+ 
+        case 2: // Read 
+            echo file_exists($file) ? nl2br(file_get_contents($file)) : "File not found."; 
+            break; 
+ 
+        case 3: // Append fixed text 
+            file_put_contents($file, "Appended line.\n", FILE_APPEND); 
+            echo "Content appended."; 
+            break; 
+ 
+        case 4: // Delete 
+            echo (file_exists($file) && unlink($file)) ? "File deleted." : "File not found."; 
+            break; 
+ 
+        default: 
+            echo "Invalid choice."; 
+    } 
+} 
+?> 
+</body> 
+</html>
