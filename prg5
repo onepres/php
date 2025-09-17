@@ -1,0 +1,55 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>College Library - Student Form</title> 
+</head> 
+<body> 
+<h2>Student Details Form</h2> 
+ 
+<form method="post"> 
+    Name: <input type="text" name="name"><br><br> 
+    Roll No: <input type="text" name="roll"><br><br> 
+    Email: <input type="text" name="email"><br><br> 
+    Course: <input type="text" name="course"><br><br> 
+    <input type="submit" value="Submit"> 
+</form> 
+ 
+<hr> 
+ 
+<?php 
+if($_SERVER["REQUEST_METHOD"] == "POST"){ 
+    $name   = trim($_POST['name']); 
+    $roll   = trim($_POST['roll']); 
+    $email  = trim($_POST['email']); 
+    $course = trim($_POST['course']); 
+ 
+    $errors = []; 
+ 
+    // Name: only letters and spaces 
+    if(empty($name)) $errors[] = "Name is required."; 
+    elseif(!preg_match("/^[a-zA-Z ]+$/", $name)) $errors[] = "Name can only contain letters and spaces."; 
+ 
+    // Roll No: only numbers 
+    if(empty($roll)) $errors[] = "Roll Number is required."; 
+    elseif(!preg_match("/^[0-9]+$/", $roll)) $errors[] = "Roll Number can only contain digits."; 
+ 
+    // Email: valid email format 
+    if(empty($email)) $errors[] = "Email is required."; 
+    elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Invalid email format."; 
+ 
+    // Course: only letters and spaces 
+    if(empty($course)) $errors[] = "Course is required."; 
+    elseif(!preg_match("/^[a-zA-Z ]+$/", $course)) $errors[] = "Course can only contain letters and 
+spaces."; 
+ 
+    // Show results 
+    if($errors){ 
+        foreach($errors as $e) echo "<p style='color:red;'>$e</p>"; 
+    } else { 
+        echo "<h3>Student Details Submitted:</h3>"; 
+        echo "Name: $name<br>Roll No: $roll<br>Email: $email<br>Course: $course"; 
+    } 
+} 
+?> 
+</body> 
+</html>
